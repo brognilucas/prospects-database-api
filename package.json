@@ -1,0 +1,21 @@
+{
+  "name": "prospects-backend",
+  "version": "1.0.0",
+  "description": "A backend which is part of my personal portifolio where I'm making an API to share analysis of NFL Draft prospects",
+  "main": "node/index.js",
+  "scripts": {
+    "test": "jest tests/ --forceExit", 
+    "start": "node src/"
+  },
+  "author": "Lucas Brogni",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.9.18"
+  },
+  "devDependencies": {
+    "@shelf/jest-mongodb": "^1.1.5",
+    "mongodb-memory-server": "^6.6.1",
+    "jest": "^26.0.1"
+  }
+}
