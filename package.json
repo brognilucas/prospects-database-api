@@ -4,18 +4,20 @@
   "description": "A backend which is part of my personal portifolio where I'm making an API to share analysis of NFL Draft prospects",
   "main": "node/index.js",
   "scripts": {
-    "test": "jest tests/ --forceExit", 
+    "test": "jest tests/ --forceExit",
+    "test:coverage": "jest tests/ --coverage",
     "start": "node src/"
   },
   "author": "Lucas Brogni",
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
-    "mongoose": "^5.9.18"
+    "mongoose": "^5.9.18",
+    "uuid": "^8.1.0"
   },
   "devDependencies": {
     "@shelf/jest-mongodb": "^1.1.5",
-    "mongodb-memory-server": "^6.6.1",
-    "jest": "^26.0.1"
+    "jest": "^26.0.1",
+    "mongodb-memory-server": "^6.6.1"
   }
 }
