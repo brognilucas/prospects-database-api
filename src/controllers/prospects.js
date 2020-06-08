@@ -1,4 +1,4 @@
-const { find } = require('../repository/prospects');
+const { find ,  create: createDB } = require('../repository/prospects');
 
 async function get(req, res) { 
 
@@ -9,6 +9,21 @@ async function get(req, res) {
 }
 
 
+async function create(req, res) { 
+    const { body } = req; 
+    
+    try { 
+        await createDB(body); 
+
+        return res.status(201); 
+    }
+    catch(erorr) { 
+        return res.status(400).send(error); 
+    }
+
+
+}
+
 module.exports =  {
-    get
+    get , create
 }
