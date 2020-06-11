@@ -15,7 +15,7 @@ module.exports = (prospectInfo = {}) => {
         dateOfBirth: null,
         photo: null, 
     }
-
+    
     return { 
         code: !prospectInfo.code  ? generateCode() : prospectInfo.code,
         ...props,

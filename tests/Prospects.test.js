@@ -1,4 +1,4 @@
-const { find, create, findByCode } = require('../src/repository/prospects')
+const { find, create, findByCode, update, remove: removeProspect } = require('../src/repository/prospects')
 const mongoose = require('mongoose');
 const { MongoMemoryServer } = require('mongodb-memory-server');
 const factory = require('../src/factory/prospect')
@@ -21,9 +21,10 @@ describe('Prospects Tests', () => {
         });
     });
 
-    it ('Factory should return a code and properties height and weight ' , async () => { 
-        const prospect = factory(prospectMock); 
+    let createdProspectCode = null;
 
+    it('Factory should return a code and properties height and weight ', async () => {
+        const prospect = factory(prospectMock);
         expect(prospect.code).toBeDefined();
         expect(prospect.name).toEqual(prospectMock.name);
         expect(prospect).toHaveProperty('height');
@@ -34,6 +35,7 @@ describe('Prospects Tests', () => {
         const result = await create(prospectMock)
         expect(result).toHaveProperty('_id');
         expect(result).toHaveProperty('code');
+        createdProspectCode = result.code;
     })
 
     it('Should failed on create prospect without position', async () => {
@@ -41,14 +43,35 @@ describe('Prospects Tests', () => {
     })
 
     it('Should find a existent prospect ', async () => {
-        const result = await create(prospectMock)
-        const prospect = await findByCode(result.code);
-
+        const prospect = await findByCode(createdProspectCode);
         expect(prospect).toBeDefined();
-        expect(prospect.code).toEqual(result.code);
+        expect(prospect.code).toEqual(createdProspectCode);
     })
 
 
+    it('List an empty list when filtering by WR position ' , async () => { 
+        let result = await find({ position: 'wr' });
+
+        expect(result.length).toEqual(0);
+    })
+
+    it('Should update an existent prospect ', async () => {
+        const prospect = await findByCode(createdProspectCode);
+        let dateOfBirth = new Date(1996, 5, 7);
+        Object.assign(prospect, { dateOfBirth })
+        const response = await update(prospect);
+        let edited = await findByCode(createdProspectCode)
+        expect(response).toHaveProperty('ok');
+        expect(response.ok).toBe(1);
+        expect(edited).toEqual(prospect);
+    })
+
+    it('Should delete a prospect by code ', async () => {
+        const res = await removeProspect(createdProspectCode)
+
+        expect(res).toHaveProperty('deletedCount');
+        expect(res.deletedCount).toEqual(1);
+    })
 
     it('Should receive a list', async () => {
         const results = await find();
