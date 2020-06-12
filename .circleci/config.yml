@@ -11,8 +11,8 @@ jobs:
           steps:
             - run: npm install
             - run:
-              name: "Run Jest and Collect Coverage Reports"
-              command: jest --collectCoverage=true
+                name: "Run Jest and Collect Coverage Reports"
+                command: npm test --collectCoverage=true
 workflows:
     build-and-test:
       jobs:
