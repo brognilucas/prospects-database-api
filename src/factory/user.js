@@ -1,5 +1,5 @@
 const bcrypt = require('bcrypt');
-const { salt = 10 } = process.env
+const { SALT = 10 } = process.env
 const uuid = require('uuid');
 
 const defaultFields = {
@@ -17,7 +17,7 @@ async function userFactory(user = defaultFields) {
     }
 
     async function hashPassword() {
-        return bcrypt.hash(user.password, salt);
+        return bcrypt.hash(user.password, SALT);
     }
 
     let password = await hashPassword();
