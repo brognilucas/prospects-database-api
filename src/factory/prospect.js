@@ -1,24 +1,24 @@
 const uuid = require('uuid');
 
-module.exports = (prospectInfo = {}) => { 
+const defaultFields = { 
+    name: null,
+    position: null, 
+    college: null,
+    year: null,
+    height: null,
+    weight: null,
+    dateOfBirth: null,
+    photo: null, 
+}
+
+
+module.exports = (prospectInfo = defaultFields) => { 
     function generateCode() { 
-        return uuid.v4()
+        return prospectInfo.code || uuid.v4()
     }
 
-    const props = { 
-        name: null,
-        position: null, 
-        college: null,
-        year: null,
-        height: null,
-        weight: null,
-        dateOfBirth: null,
-        photo: null, 
-    }
-    
     return { 
-        code: !prospectInfo.code  ? generateCode() : prospectInfo.code,
-        ...props,
+        code: generateCode(),
         ...prospectInfo,
     }
 }

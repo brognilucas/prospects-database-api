@@ -1,4 +1,4 @@
-const { find: findGeneric, create: createGeneric, findOneByCode, update: updateGeneric, remove: genericRemove } = require('../repository/generic');
+const repository = require('../repository/generic');
 const { MODEL: model } = require('../model/prospect');
 const prospectFactory = require('../factory/prospect');
 
@@ -21,27 +21,25 @@ async function find(query = {}) {
         })
     }
 
-    return findGeneric({ model, query: removeUnusedFilters(filters) });
+    return repository.find({ model, query: removeUnusedFilters(filters) });
 }
 
 async function findByCode(code) {
-    return findOneByCode({ model, code });
+    return repository.findOneByCode({ model, code });
 }
 
 
 async function update(prospect) {
-    return updateGeneric({ model, body: prospect })
+    return repository.update({ model, body: prospect })
 }
 
 async function create(body) {
-    return createGeneric({ model, body: prospectFactory(body) });
+    return repository.create({ model, body: prospectFactory(body) });
 }
 
 async function remove(code) {
-    return genericRemove({ model, code });
+    return repository.remove({ model, code });
 }
-
-
 
 function removeUnusedFilters(filters) {
     for (let filter of Object.keys(filters)) {

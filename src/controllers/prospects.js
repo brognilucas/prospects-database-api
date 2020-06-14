@@ -1,7 +1,7 @@
-const { find, create: createDB , update , remove: removeDB } = require('../repository/prospects');
+const db = require('../repository/prospects');
 
 async function get(req, res) {
-    const results = await find(req.query) || []
+    const results = await db.find(req.query) || []
     return res.status(200).json(results);
 }
 
@@ -10,7 +10,7 @@ async function create(req, res) {
     const { body } = req;
 
     try {
-        await createDB(body);
+        await db.create(body);
 
         return res.status(201).send();
     }
@@ -19,18 +19,18 @@ async function create(req, res) {
     }
 }
 
-async function put(req, res) { 
-    const { body, $prospectCode : code } = req; 
-    Object.assign(body, { 
+async function put(req, res) {
+    const { body, $prospectCode: code } = req;
+    Object.assign(body, {
         code
     });
-    await update(body);
+    await db.update(body);
     return res.status(204).send();
 }
 
-async function remove(req, res) { 
-    const { $prospectCode : code } = req; 
-    await removeDB(code);
+async function remove(req, res) {
+    const { $prospectCode: code } = req;
+    await db.remove(code);
 
     return res.status(204).send();
 }

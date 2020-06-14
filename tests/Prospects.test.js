@@ -27,8 +27,6 @@ describe('Prospects Tests', () => {
         const prospect = factory(prospectMock);
         expect(prospect.code).toBeDefined();
         expect(prospect.name).toEqual(prospectMock.name);
-        expect(prospect).toHaveProperty('height');
-        expect(prospect).toHaveProperty('weight');
     })
 
     it('Should create a prospect ', async () => {
@@ -48,10 +46,13 @@ describe('Prospects Tests', () => {
         expect(prospect.code).toEqual(createdProspectCode);
     })
 
+    it('Should list an array with more at least one prospect when find by postion = qb ' , async () => { 
+        const prospects = await find({  position: 'qb' })
+        expect(prospects.length).toBeGreaterThan(0);
+    })
 
     it('List an empty list when filtering by WR position ' , async () => { 
         let result = await find({ position: 'wr' });
-
         expect(result.length).toEqual(0);
     })
 

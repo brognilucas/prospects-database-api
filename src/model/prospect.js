@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 const { Schema } = require('mongoose');
-const uuid = require('uuid')
-const MODEL = 'Prospect';
+const MODEL = 'Prospects';
 const Prospect = new Schema({
     code: { 
         type: String, 
