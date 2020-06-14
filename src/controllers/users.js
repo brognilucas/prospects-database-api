@@ -1,15 +1,15 @@
 const userFactory = require('../factory/user')
 const db = require('../repository/users');
 const bcrypt = require('bcrypt');
-async function create(req, res) { 
+async function create(req, res, next) { 
     const { body } = req; 
-    const user = userFactory(body);
+    const user = await userFactory(body);
     try { 
         await db.create(user);
 
         return res.status(201).send();
     } catch(error) { 
-        next(error); 
+        return res.status(400).send(error);
     }
 }
 
@@ -23,8 +23,6 @@ async function login(req, res) {
     if (!validatePassword(body.password , response.password)){ 
         return res.status(403).send("User and password doesnt match");
     }
-
-
 
     return res.status(200).json({ 
         user: { 
@@ -42,5 +40,5 @@ async function validatePassword(password, hash) {
 }
 
 module.exports = { 
-    create, validatePassword
+    create, validatePassword, login
 };

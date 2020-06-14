@@ -1,5 +1,5 @@
 const repository = require('../repository/generic');
-const { MODEL: model } = require('../model/prospect');
+const { MODEL: model } = require('../model/user');
 const mongoose = require('mongoose')
 async function find() {
     return repository.find({ model })
