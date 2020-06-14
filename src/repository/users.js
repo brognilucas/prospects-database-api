@@ -21,12 +21,9 @@ async function remove(code) {
     return repository.remove({ model, code });
 }
 
-async function findUserByEmail(email) { 
-    return mongoose.model(model).findOne(email).lean().exec()
+async function findUserByEmail(email) {
+    return mongoose.model(model).findOne({ email }).lean().exec()
 }
-
-
-
 
 module.exports = {
     create, update, remove, findOne, find, findUserByEmail

@@ -47,6 +47,13 @@ describe('User Tests', () => {
         expect(Promise.resolve(promise)).rejects.toThrow();
     })
 
+
+    it('Should find an user by e-mail ', async () => {
+        const user = await  userRepository.findUserByEmail(userMock.email);
+        expect(user).toHaveProperty('_id');
+        expect(user.email).toBe(userMock.email);
+    })
+
     it('Should list an array of users ', async () => {
         const result = await userRepository.find();
         expect(result.length).toBeGreaterThan(0);
@@ -65,6 +72,14 @@ describe('User Tests', () => {
         let result = await userRepository.update(mock);
 
         expect(result.ok).toBe(1);
+        expect(result.nModified).toBe(1);
+    })
+
+    it('Should not modify ', async () => {
+        const mock = { ...userMock, code: null, name: 'José' };
+        let result = await userRepository.update(mock);
+
+        expect(result.nModified).toBe(0)
     })
 
     it('Should remove an user ', async () => {
@@ -72,4 +87,5 @@ describe('User Tests', () => {
         expect(response).toHaveProperty('deletedCount');
         expect(response.deletedCount).toEqual(1);
     })
+
 })
