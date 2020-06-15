@@ -4,7 +4,9 @@ const userRepository = require('../src/repository/users');
 const mongoose = require('mongoose');
 const { MongoMemoryServer } = require('mongodb-memory-server');
 const request = require('supertest');
-const app = require('../src/index')
+const app = require('../src/index');
+const redis = require("redis-mock"),
+      client = redis.createClient();
 describe('User Tests', () => {
 
     beforeAll(async () => {
