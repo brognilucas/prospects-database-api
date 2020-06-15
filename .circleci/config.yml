@@ -13,14 +13,6 @@ jobs:
             - run:
                 name: "Run Jest and Collect Coverage Reports"
                 command: npm test --collectCoverage=true
-                environment: 
-                  - JWT_SECRET=AmbienteDeTestes
-                  - DB_NAME=DatabaseDeTestes
-                  - DB_HOST=127.0.0.1
-                  - DB_PORT=27017
-                  - SALT=1
-                  - PORT=3000
-                  - SESSION_SECRET=TESTES
 workflows:
     build-and-test:
       jobs:
