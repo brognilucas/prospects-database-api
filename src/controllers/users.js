@@ -20,7 +20,8 @@ async function login(req, res) {
     if (!response){ 
         return res.status(404).send('User not found'); 
     }
-    if (!validatePassword(body.password , response.password)){ 
+    
+    if (!(await validatePassword(body.password , response.password))){ 
         return res.status(403).send("User and password doesnt match");
     }
 
