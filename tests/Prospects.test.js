@@ -2,6 +2,8 @@ const repository = require('../src/repository/prospects')
 const mongoose = require('mongoose');
 const { MongoMemoryServer } = require('mongodb-memory-server');
 const factory = require('../src/factory/prospect')
+const redis = require("redis-mock"),
+      client = redis.createClient();
 describe('Prospects Tests', () => {
 
     let mongoServer;
