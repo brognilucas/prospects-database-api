@@ -17,6 +17,9 @@ describe('User Tests', () => {
         });
     });
 
+    jest.mock('redis', () => redis)
+
+
     const userMock = { name: 'Lucas Brogni', email: 'lucasbrogni16@gmail.com', password: 'bananas_de_pijamas' };
     let userCreatedCode, userCreated;
     it('Factory should return a code ', async () => {
