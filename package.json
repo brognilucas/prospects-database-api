@@ -12,10 +12,13 @@
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.0.0",
+    "connect-redis": "^4.0.4",
     "dotenv-safe": "^8.2.0",
     "express": "^4.17.1",
+    "express-session": "^1.17.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.9.18",
+    "redis": "^3.0.2",
     "uuid": "^8.1.0"
   },
   "devDependencies": {

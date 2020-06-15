@@ -33,11 +33,17 @@ async function login(req, res) {
 
     let token = await generateToken(user);
 
+    req.session.token = token; 
     return res.status(200).json({
         auth: true,
         user,
-        token
     })
+}
+
+async function logout(req, res) { 
+    req.session.token = null;
+
+    return res.status(204).send();
 }
 
 async function generateToken(user) {
@@ -50,5 +56,5 @@ async function validatePassword(password, hash) {
 }
 
 module.exports = {
-    create, validatePassword, login
+    create, validatePassword, login, logout
 };
