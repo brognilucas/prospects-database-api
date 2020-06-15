@@ -4,7 +4,7 @@ const UserModel = require('./user')
 
 module.exports = async () => {
     Promise.all([
-        ProspectModel.model.createCollection(), 
-        UserModel.model.createCollection(),
+        ProspectModel.model.createCollection().catch(() => {}), 
+        UserModel.model.createCollection().catch(() => {}),
     ])
 }
