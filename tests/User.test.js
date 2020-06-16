@@ -1,21 +1,23 @@
 const userFactory = require('../src/factory/user');
 const userCtrl = require('../src/controllers/users');
 const userRepository = require('../src/repository/users');
-const mongoose = require('mongoose');
-const { MongoMemoryServer } = require('mongodb-memory-server');
 const request = require('supertest');
-
 describe('User Tests', () => {
 
-    beforeAll(async () => {
-        mongoServer = new MongoMemoryServer();
-        const mongoUri = await mongoServer.getUri();
-        await mongoose.connect(mongoUri, {}, (err) => {
-            if (err) {
-                throw err;
-            }
-        });
-    });
+    jest.mock('../src/config/db', () => {
+        return jest.fn( async () => {
+            const { MongoMemoryServer } = require('mongodb-memory-server');
+            const mongoose = require('mongoose');
+
+            let mongoServer = new MongoMemoryServer();
+            const mongoUri = await mongoServer.getUri();
+            await mongoose.connect(mongoUri, {}, (err) => {
+                if (err) {
+                    throw err;
+                }
+            });
+        })
+    })
 
     jest.mock('../src/config/redis', () => {
         return jest.fn(() => ({
@@ -28,6 +30,7 @@ describe('User Tests', () => {
     const app = require('../src/index');
     const userMock = { name: 'Lucas Brogni', email: 'lucasbrogni16@gmail.com', password: 'bananas_de_pijamas' };
     let userCreatedCode, userCreated;
+    
     it('Factory should return a code ', async () => {
         const user = await userFactory(userMock);
         expect(user.code).toBeDefined();
