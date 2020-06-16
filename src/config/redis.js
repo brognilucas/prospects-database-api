@@ -1,8 +1,6 @@
 const redis = require('redis');
-const session = require('express-session');
 const redisStore = require('connect-redis');
-
-function connectSession() {
+function connectSession(session) {
     let store = redisStore(session);
     const client = redis.createClient();
     return {

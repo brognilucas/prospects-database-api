@@ -4,7 +4,6 @@ const userRepository = require('../src/repository/users');
 const mongoose = require('mongoose');
 const { MongoMemoryServer } = require('mongodb-memory-server');
 const request = require('supertest');
-const app = require('../src/index');
 
 describe('User Tests', () => {
 
@@ -18,6 +17,15 @@ describe('User Tests', () => {
         });
     });
 
+    jest.mock('../src/config/redis', () => {
+        return jest.fn(() => ({
+            secret: process.env.SESSION_SECRET,
+            saveUninitialized: false,
+            resave: false
+        }))
+    })
+
+    const app = require('../src/index');
     const userMock = { name: 'Lucas Brogni', email: 'lucasbrogni16@gmail.com', password: 'bananas_de_pijamas' };
     let userCreatedCode, userCreated;
     it('Factory should return a code ', async () => {
@@ -57,13 +65,13 @@ describe('User Tests', () => {
     })
 
     it('Should make login', async () => {
-        let { status , body } = await request(app).post('/users/sign-in').send({ email: userMock.email, password: userMock.password });
+        let { status, body } = await request(app).post('/users/sign-in').send({ email: userMock.email, password: userMock.password });
         expect(status).toBe(200);
         expect(body).toHaveProperty('auth', true);
         expect(body).toHaveProperty('user');
     })
 
-    it('Should finish session ' , async () => { 
+    it('Should finish session ', async () => {
         let { status } = await request(app).post('/users/logout')
 
         expect(status).toBe(204);

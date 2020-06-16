@@ -4,7 +4,7 @@
   "description": "A backend which is part of my personal portifolio where I'm making an API to share analysis of NFL Draft prospects",
   "main": "node/index.js",
   "scripts": {
-    "test": "jest tests/ --forceExit  --collectCoverage=true",
+    "test": "NODE_ENV=test jest tests/ --forceExit  --collectCoverage=true",
     "test:coverage": "jest tests/ --coverage",
     "start": "node src/"
   },
@@ -16,6 +16,7 @@
     "dotenv-safe": "^8.2.0",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
+    "ioredis-mock": "^4.21.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.9.18",
     "redis": "^3.0.2",
