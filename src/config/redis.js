@@ -13,5 +13,4 @@ function connectSession() {
     }
 }
 
-module.exports =
-    connectSession
+module.exports = connectSession
