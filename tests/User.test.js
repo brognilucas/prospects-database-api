@@ -5,8 +5,7 @@ const mongoose = require('mongoose');
 const { MongoMemoryServer } = require('mongodb-memory-server');
 const request = require('supertest');
 const app = require('../src/index');
-const redis = require("redis-mock"),
-      client = redis.createClient();
+
 describe('User Tests', () => {
 
     beforeAll(async () => {
@@ -18,9 +17,6 @@ describe('User Tests', () => {
             }
         });
     });
-
-    jest.mock('redis', () => redis)
-
 
     const userMock = { name: 'Lucas Brogni', email: 'lucasbrogni16@gmail.com', password: 'bananas_de_pijamas' };
     let userCreatedCode, userCreated;
