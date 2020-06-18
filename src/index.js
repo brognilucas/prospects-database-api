@@ -4,7 +4,7 @@ const routes = require('./routes');
 const PORT = process.env.PORT || 3000;
 const configDB = require('./config/db')
 require("dotenv-safe").config({
-    allowEmptyValues: true
+    allowEmptyValues: true,
 });
 const session = require('express-session');
 const connectSession = require('./config/redis')

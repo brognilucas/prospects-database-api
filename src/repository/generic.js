@@ -1,25 +1,23 @@
 const mongoose = require('mongoose');
 
-async function find({ model, query = {} }) {
-    return mongoose.model(model).find(query).lean().exec()
-}
-
-async function findOneByCode({ model, code }) {
-    return mongoose.model(model).findOne({ code }).lean().exec()
-}
-
-async function create({ model, body }) {
-    return mongoose.model(model).create(body)
-}
-
-async function update({ model, body }) {
-    return mongoose.model(model).updateOne({ code: body.code }, { $set: body })
-}
-
-async function remove({ model, code }) {
-    return mongoose.model(model).remove({ code })
-}
-
-module.exports = {
-    find, create, findOneByCode, update, remove
+module.exports = (model) => {
+    const db = mongoose.model(model);
+    return {
+        find: async (query) => {
+            return db.find(query).lean().exec()
+        },
+        create: async (data) => {
+            return db.create(data)
+        },
+        findOneByCode: async (code) => {
+            return db.findOne({ code }).lean().exec()
+        },
+        update: async (data) => {
+            return db.updateOne({ code: data.code }, { $set: data }).lean().exec()
+        },
+        remove: async (code) => {
+            return db.deleteOne({ code }).lean().exec();
+        },
+        db
+    }
 }

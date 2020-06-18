@@ -1,28 +1,28 @@
-const repository = require('../repository/generic');
 const { MODEL: model } = require('../model/user');
-const mongoose = require('mongoose')
+const repository = require('../repository/generic')(model);
+
 async function find() {
-    return repository.find({ model })
+    return repository.find({})
 }
 
 async function create(user) {
-    return repository.create({ model, body: user });
+    return repository.create(user);
 }
 
 async function update(user) {
-    return repository.update({ model, body: user });
+    return repository.update(user);
 }
 
 async function findOne(code) {
-    return repository.findOneByCode({ model, code });
+    return repository.findOneByCode(code);
 }
 
 async function remove(code) {
-    return repository.remove({ model, code });
+    return repository.remove(code);
 }
 
 async function findUserByEmail(email) {
-    return mongoose.model(model).findOne({ email }).lean().exec()
+    return repository.db.findOne({ email }).lean().exec()
 }
 
 module.exports = {

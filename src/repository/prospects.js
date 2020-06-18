@@ -1,5 +1,5 @@
-const repository = require('../repository/generic');
 const { MODEL: model } = require('../model/prospect');
+const repository = require('../repository/generic')(model);
 const prospectFactory = require('../factory/prospect');
 
 async function find(query = {}) {
@@ -21,24 +21,24 @@ async function find(query = {}) {
         })
     }
 
-    return repository.find({ model, query: removeUnusedFilters(filters) });
+    return repository.find(removeUnusedFilters(filters));
 }
 
 async function findByCode(code) {
-    return repository.findOneByCode({ model, code });
+    return repository.findOneByCode(code)
 }
 
 
 async function update(prospect) {
-    return repository.update({ model, body: prospect })
+    return repository.update(prospect)
 }
 
 async function create(body) {
-    return repository.create({ model, body: prospectFactory(body) });
+    return repository.create(prospectFactory(body));
 }
 
 async function remove(code) {
-    return repository.remove({ model, code });
+    return repository.remove(code);
 }
 
 function removeUnusedFilters(filters) {
