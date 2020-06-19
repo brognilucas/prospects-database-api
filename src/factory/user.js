@@ -10,7 +10,7 @@ const defaultFields = {
 }
 
 
-async function userFactory(user = defaultFields) {
+async function userFactory(user = defaultFields , omitPassword = false) {
 
     function getCode() {
         return user.code || uuid.v4()
@@ -21,13 +21,15 @@ async function userFactory(user = defaultFields) {
     }
 
     let password = await hashPassword();
-    return {
+    let userCreated = {
         ...user,
         code: getCode(),
-        password,
+    }
+    if(!omitPassword) { 
+        Object.assign(userCreated, { password });
     }
 
-
+    return userCreated
 }
 
 

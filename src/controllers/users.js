@@ -40,6 +40,36 @@ async function login(req, res) {
     })
 }
 
+async function getByCode(req, res) { 
+    const user = req.$user; 
+
+    return res.status(200).json(user);
+}
+
+async function get(req, res){ 
+    const users = await db.find(); 
+
+    return res.status(200).json(users);
+}
+
+async function update(req, res) { 
+    const { body , $userCode: code } = req; 
+    if (!body.code) { 
+        Object.assign(body, { code }); 
+    }
+
+    await db.update(userFactory(body)); 
+
+    return res.status(204).send()
+}
+
+async function remove(req, res) { 
+    const { $userCode : code  } = req; 
+    await db.remove(code);
+
+    return res.status(204).send();
+}
+
 async function logout(req, res) { 
     req.session.token = null;
 
@@ -56,5 +86,5 @@ async function validatePassword(password, hash) {
 }
 
 module.exports = {
-    create, validatePassword, login, logout
+    create, validatePassword, login, logout, get, getByCode, update, remove
 };
