@@ -8,15 +8,16 @@ require("dotenv-safe").config({
 });
 const session = require("express-session");
 const connectSession = require("./config/redis");
+const cookieParser = require('cookie-parser');
+const cors = require('cors')
 
-app.use(function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  next();
-});
+app.use(cookieParser(process.env.COOKIE_SECRET));
+
+app.use(cors({
+  credentials: true,
+  origin: "http://localhost:3000"
+}));
+
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

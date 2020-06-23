@@ -2,7 +2,7 @@
 const jwt = require('jsonwebtoken');
 
 module.exports = (req, res, next) => {
-    let {token} = req.session;
+    let {token} = req.signedCookies;
     
     if (!token) {
         return res.status(403).send('No token provided');

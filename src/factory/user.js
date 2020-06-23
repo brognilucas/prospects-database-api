@@ -17,6 +17,8 @@ async function userFactory(user = defaultFields , omitPassword = false) {
     }
 
     async function hashPassword() {
+        if (!user.password) return null;
+         
         return bcrypt.hash(user.password, SALT);
     }
 
