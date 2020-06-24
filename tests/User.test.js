@@ -19,14 +19,6 @@ describe('User Tests', () => {
         })
     })
 
-    jest.mock('../src/config/redis', () => {
-        return jest.fn(() => ({
-            secret: process.env.SESSION_SECRET,
-            saveUninitialized: false,
-            resave: false
-        }))
-    })
-
     const app = require('../src/index');
     const userMock = { name: 'Lucas Brogni', email: 'lucasbrogni16@gmail.com', password: 'bananas_de_pijamas' };
     let userCreatedCode, userCreated;

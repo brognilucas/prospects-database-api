@@ -6,8 +6,6 @@ const configDB = require("./config/db");
 require("dotenv-safe").config({
   allowEmptyValues: true,
 });
-const session = require("express-session");
-const connectSession = require("./config/redis");
 const cookieParser = require('cookie-parser');
 const cors = require('cors')
 
@@ -21,7 +19,6 @@ app.use(cors({
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(session(connectSession(session)));
 
 app.use("/", routes);
 app.listen(PORT, async () => {
