@@ -6,7 +6,8 @@
   "scripts": {
     "test": "NODE_ENV=test jest tests/ --forceExit  --collectCoverage=true",
     "test:coverage": "jest tests/ --coverage",
-    "start": "node src/"
+    "start": "node src/", 
+    "start:test": "nodemon src/"
   },
   "author": "Lucas Brogni",
   "license": "ISC",
@@ -26,7 +27,9 @@
   },
   "devDependencies": {
     "@shelf/jest-mongodb": "^1.1.5",
+    "@testing-library/dom": "^7.18.1",
     "jest": "^26.0.1",
-    "mongodb-memory-server": "^6.6.1"
+    "mongodb-memory-server": "^6.6.1",
+    "nodemon": "^2.0.4"
   }
 }
