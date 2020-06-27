@@ -15,8 +15,8 @@ module.exports = (model) => {
         findOneByCode: async (code) => {
             return db.findOne({ code }).lean().exec()
         },
-        update: async (data) => {
-            return db.updateOne({ code: data.code }, { $set: data }).lean().exec()
+        update: async (data , where = { }) => {
+            return db.updateOne(where, { $set: data }).lean().exec()
         },
         remove: async (code) => {
             return db.deleteOne({ code }).lean().exec();

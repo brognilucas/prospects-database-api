@@ -10,11 +10,11 @@ const Evaluation = new Schema(
     },
     prospectId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Prospects',
+      ref: "Prospects",
     },
     userCode: {
       type: String,
-      required: true
+      required: true,
     },
     summary: {
       type: String,

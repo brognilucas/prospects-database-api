@@ -35,7 +35,6 @@ async function remove(req, res) {
     return res.status(204).send();
 }
 
-
 async function getByCode(req, res) {
     const prospect = req.$prospect;
     return res.status(200).json(prospect);

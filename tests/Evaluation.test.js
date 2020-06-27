@@ -14,6 +14,7 @@ describe('Prospects Tests', () => {
           overall: 8,
           hasRedFlag: false
     }; 
+    let id = null;
 
     beforeAll(async () => {
         mongoServer = new MongoMemoryServer();
@@ -52,6 +53,13 @@ describe('Prospects Tests', () => {
         let response = await db.create(mock);
         expect(response._id).toBeDefined();
         expect(response.overall).toBe(mock.overall)
+        id = response._id;
+    })
+
+    it('Should be able to list evaluations ' , async () => { 
+        let response = await db.find(prospectId);
+        expect(Array.isArray(response)).toBeTruthy();
+        expect(response.length).toBeGreaterThan(0);
     })
 
 })

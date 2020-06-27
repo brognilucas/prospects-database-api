@@ -10,7 +10,7 @@ async function create(user) {
 }
 
 async function update(user) {
-    return repository.update(user);
+    return repository.update(user, { code: user.code});
 }
 
 async function findOne(code) {

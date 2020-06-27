@@ -34,7 +34,7 @@ async function findByCode(code) {
 
 
 async function update(prospect) {
-    return repository.update(prospect)
+    return repository.update(prospect , { code: prospect.code })
 }
 
 async function create(body) {
