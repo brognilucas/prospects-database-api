@@ -63,7 +63,7 @@ describe('Prospects Tests', () => {
         let dateOfBirth = new Date(1996, 5, 7);
         Object.assign(prospect, { dateOfBirth })
         const response = await repository.update(prospect);
-        let edited = await repository.findByCode(createdProspectCode)
+        let edited = await repository.findSummaryByCode(createdProspectCode)
         expect(response).toHaveProperty('ok');
         expect(response.ok).toBe(1);
         expect(edited).toEqual(prospect);

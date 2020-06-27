@@ -24,8 +24,12 @@ async function find(query = {}) {
     return repository.find(removeUnusedFilters(filters));
 }
 
+async function findSummaryByCode(code){ 
+    return repository.findOneByCode(code);
+}
+
 async function findByCode(code) {
-    return repository.findOneByCode(code)
+    return (await repository.findOneAllowingPopulate(code)).populate('evaluations').toJSON();
 }
 
 
@@ -53,5 +57,5 @@ function removeUnusedFilters(filters) {
 
 
 module.exports = {
-    find, create, findByCode, update, remove
+    find, create, findByCode, update, remove, findSummaryByCode
 }

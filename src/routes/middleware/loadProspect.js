@@ -1,14 +1,25 @@
-const db = require('../../repository/prospects')
-const prospectFactory = require('../../factory/prospect')
+const db = require("../../repository/prospects");
+const prospectFactory = require("../../factory/prospect");
 module.exports = async (req, res, next) => {
-    const { code } = req.params
-    let dbProspect = await db.findByCode(code);
+  const { query } = req;
+  const { code, prospectCode } = req.params;
+  let isSummary = Object.keys(query).some((key) => key === "summary");
 
-    if (!dbProspect) { 
-        return res.status(404).send('Prospect not found');
+  let dbProspect = await findDB(code || prospectCode);
+
+  if (!dbProspect) {
+    return res.status(404).send("Prospect not found");
+  }
+
+  req.$prospect = prospectFactory(dbProspect);
+  req.$prospectCode = req.$prospect.code;
+  next();
+
+  function findDB(code) {
+    if (isSummary) {
+      return db.findSummaryByCode(code);
     }
 
-    req.$prospect = prospectFactory(dbProspect);
-    req.$prospectCode = req.$prospect.code; 
-    next();
-}
+    return db.findByCode(code);
+  }
+};

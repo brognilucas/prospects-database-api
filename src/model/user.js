@@ -18,7 +18,7 @@ const Users = new Schema({
     name: {
         type: String,
         required: true
-    },
+    }
 
 }, { collection: MODEL });
 Users.index({ username: 1 });

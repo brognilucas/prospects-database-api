@@ -1,12 +1,12 @@
 const uuid = require('uuid');
 
-module.exports = (prospectInfo = {}) => { 
+module.exports = (evaluationInfo = {}) => { 
     function generateCode() { 
-        return prospectInfo.code || uuid.v4()
+        return evaluationInfo.code || uuid.v4()
     }
 
     return { 
         code: generateCode(),
-        ...prospectInfo,
+        ...evaluationInfo,
     }
 }

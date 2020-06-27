@@ -9,6 +9,9 @@ module.exports = (model) => {
         create: async (data) => {
             return db.create(data)
         },
+        findOneAllowingPopulate: async (code) => { 
+            return db.findOne({ code })
+        },
         findOneByCode: async (code) => {
             return db.findOne({ code }).lean().exec()
         },

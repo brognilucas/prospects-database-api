@@ -1,19 +1,20 @@
 const mongoose = require("mongoose");
 const { Schema } = require("mongoose");
 const MODEL = "EvaluationProspects";
+
 const Evaluation = new Schema(
   {
     code: {
       type: String,
       required: true,
     },
-    prospectCode: {
-      type: String,
-      required: true,
+    prospectId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Prospects',
     },
     userCode: {
       type: String,
-      required: true,
+      required: true
     },
     summary: {
       type: String,
