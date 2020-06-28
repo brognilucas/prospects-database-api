@@ -24,10 +24,7 @@ const Prospect = new Schema(
       type: String,
       required: true,
     },
-    photo: String,
-    evaluations: [
-      { type: mongoose.Schema.Types.ObjectId, ref: evaluationModel },
-    ],
+    photo: String
   },
   { collection: MODEL }
 );

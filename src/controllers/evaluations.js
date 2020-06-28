@@ -1,8 +1,8 @@
 const db = require("../repository/evaluations");
-const factory = require('../factory/evaluation');
+const factory = require("../factory/evaluation");
 async function create(req, res) {
   const { body, $userCode: userCode } = req;
-  let evaluation =  await factory({ ...body, userCode });
+  let evaluation = await factory({ ...body, userCode });
 
   await db.create(evaluation);
 
@@ -11,30 +11,33 @@ async function create(req, res) {
 
 async function get(req, res) {
   const { prospectCode } = req.params;
-  let evaluations = await db.find(prospectCode);
+  let evaluations = await db.findByProspect(prospectCode);
 
-  return res.status(200).json({evaluations});
+  return res.status(200).json(evaluations);
 }
 
-async function getByCode(req, res) { 
-    const { $evaluation: evaluation } = req; 
-    return res.status(200).json(evaluation);
-} 
-
-
-async function update(req, res) { 
-    const { body, $evaluationCode: code } = req; 
-    await db.update(body, code);
-    return res.status(204).end();
+async function getByCode(req, res) {
+  const { $evaluation: evaluation } = req;
+  return res.status(200).json(evaluation);
 }
 
-async function remove(req, res){
-  const { code } = req.params; 
+async function update(req, res) {
+  const { body, $evaluationCode: code } = req;
+  await db.update(body, code);
+  return res.status(204).end();
+}
+
+async function remove(req, res) {
+  const { code } = req.params;
   await db.remove(code);
 
-  return res.status(204).end()
+  return res.status(204).end();
 }
 
 module.exports = {
-  create,get, getByCode, update, remove
+  create,
+  get,
+  getByCode,
+  update,
+  remove,
 };
