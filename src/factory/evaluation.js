@@ -9,17 +9,16 @@ module.exports = async (evaluationInfo = {}) => {
     }
 
     async function findUser() { 
-        return userDB.findOne(evaluationInfo.userCode);
+        return userDB.findPublicUserInfo(evaluationInfo.userCode);
     }
 
     async function findProspect() { 
         return prospectDB.findByCode(evaluationInfo.prospectCode);
     }
 
-    let _prospect = await findProspect().then(prospectFactory);
-    let _user = await userFactory(await findUser(), true)
+    let _prospect = await findProspect();
+    let _user = await findUser();
     
-
     if (!_user && process.env.NODE_ENV !== 'test'){ 
         throw 'User not found';
     }

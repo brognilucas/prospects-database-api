@@ -10,29 +10,30 @@ const defaultFields = {
 }
 
 
-async function userFactory({password , ...user} = defaultFields , omitPassword = false) {
+async function userFactory(user = defaultFields , omitPassword = false) {
 
     function getCode() {
         return user.code || uuid.v4()
     }
 
     async function hashPassword() {
-        if (!password) return null;
+        if (!user.password) return null;
          
-        return bcrypt.hash(password, SALT);
+        return bcrypt.hash(user.password, SALT);
     }
 
-    
-    if (!password && !omitPassword) { 
-        password = await hashPassword();
-    }
-    
+    let password = await hashPassword();
+
+
     let userCreated = {
         ...user,
         code: getCode(),
     }
+    
     if(!omitPassword) { 
         Object.assign(userCreated, { password });
+    } else { 
+        delete userCreated.password; 
     }
 
     return userCreated

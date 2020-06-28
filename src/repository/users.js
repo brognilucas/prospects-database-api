@@ -13,6 +13,11 @@ async function update(user) {
     return repository.update(user, { code: user.code});
 }
 
+
+async function findPublicUserInfo(code){ 
+    return repository.db.findOne({ code } , { password: 0 });
+}
+
 async function findOne(code) {
     return repository.findOneByCode(code);
 }
@@ -26,5 +31,5 @@ async function findUserByEmail(email) {
 }
 
 module.exports = {
-    create, update, remove, findOne, find, findUserByEmail
+    create, update, remove, findOne, find, findUserByEmail, findPublicUserInfo
 }
