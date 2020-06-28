@@ -1,27 +1,40 @@
-const { MODEL: model } = require('../model/evaluation');
-const repository = require('../repository/generic')(model);
-const evaluationFactory = require('../factory/evaluation');
+const { MODEL: model } = require("../model/evaluation");
+const repository = require("../repository/generic")(model);
 
-async function create(evaluation) { 
-    return repository.create(evaluationFactory(evaluation))
+async function create(evaluation) {
+  return repository.create(evaluation);
 }
 
-async function find(prospectId) { 
-    return repository.find({ prospectId });
+async function findByProspect(prospectCode) {
+  return repository.find({ prospectCode });
 }
 
-async function findById(id) { 
-    return repository.db.findById(id).lean().exec()
+async function find(filter = {}) {
+  return repository.find(filter);
 }
 
-async function update(evaluation, id) { 
-    return repository.db.findByIdAndUpdate(id, { $set: evaluation }).lean().exec();
+async function findById(id) {
+  return repository.db.findById(id).lean().exec();
 }
 
-async function remove(id) { 
-    return repository.db.findByIdAndDelete(id).lean().exec();
+async function findOne(code) {
+  return repository.findOneByCode(code);
+}
+
+async function update(evaluation, code) {
+  return repository.update(evaluation, { code });
+}
+
+async function remove(code) {
+  return repository.remove(code);
 }
 
 module.exports = {
-    create, find, findById,update, remove
-}
+  create,
+  find,
+  findById,
+  update,
+  remove,
+  findOne,
+  findByProspect
+};

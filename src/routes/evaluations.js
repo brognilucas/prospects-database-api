@@ -5,8 +5,8 @@ const evaluationCtrl = require('../controllers/evaluations');
 const loadEvaluation = require('./middleware/loadEvaluation');
 
 routes.post('/', validateUserMw , evaluationCtrl.create);
-routes.get('/prospect/:prospectId' , evaluationCtrl.get );
-routes.get('/:id', loadEvaluation , evaluationCtrl.getById); 
-routes.put('/:id' , loadEvaluation , evaluationCtrl.update);
-routes.delete('/:id' , loadEvaluation, evaluationCtrl.remove);
+routes.get('/prospect/:prospectCode' , evaluationCtrl.get );
+routes.get('/:code', loadEvaluation , evaluationCtrl.getByCode); 
+routes.put('/:code' , loadEvaluation , evaluationCtrl.update);
+routes.delete('/:code' , loadEvaluation, evaluationCtrl.remove);
 module.exports = routes;

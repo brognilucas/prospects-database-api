@@ -8,9 +8,9 @@ const Evaluation = new Schema(
       type: String,
       required: true,
     },
-    prospectId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Prospects",
+    prospectCode: {
+      type: String,
+      required: true
     },
     userCode: {
       type: String,
