@@ -1,5 +1,6 @@
 const db = require("../repository/evaluations");
 const factory = require("../factory/evaluation");
+const { response } = require("express");
 async function create(req, res) {
   const { body, $userCode: userCode } = req;
   let evaluation = await factory({ ...body, userCode });
@@ -12,8 +13,9 @@ async function create(req, res) {
 async function get(req, res) {
   const { prospectCode } = req.params;
   let evaluations = await db.findByProspect(prospectCode);
+  let response = await Promise.all(evaluations.map(async (evaluation) => factory(evaluation)));
 
-  return res.status(200).json(evaluations);
+  return res.status(200).json(response);
 }
 
 async function getByCode(req, res) {

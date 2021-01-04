@@ -23,8 +23,7 @@ async function userFactory(user = defaultFields , omitPassword = false) {
     }
 
     let password = await hashPassword();
-
-
+    
     let userCreated = {
         ...user,
         code: getCode(),

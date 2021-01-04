@@ -81,10 +81,12 @@ async function logout(req, res) {
 
 async function validateSession(req, res, next) {
   const code = req.$userCode;
-  let user = await db.findOne(code);
-  let newToken = await generateToken(userFactory(user));
+  let dbResponse = await db.findOne(code);
+  let user = await userFactory(dbResponse , true)
+  let newToken = await generateToken(user);
 
-  return res.cookie("token", newToken , cookieOptions).status(200).json({ auth: true });
+  return res.cookie("token", newToken , cookieOptions)
+  .status(200).json({ auth: true , user });
 }
 
 async function generateToken(user) {

@@ -20,13 +20,9 @@ const Evaluation = new Schema(
       type: String,
       required: true,
     },
-    bestSkills: {
+    skills: {
       type: Array,
-      required: true,
-    },
-    worstSkills: {
-      type: Array,
-      required: true,
+      required: true
     },
     overall: {
       type: Number,
@@ -45,7 +41,7 @@ const Evaluation = new Schema(
 Evaluation.index({ code: 1 }, { unique: true });
 Evaluation.index({ prospectCode: 1 });
 Evaluation.index({ userCode: 1 });
-Evaluation.index({ prospectCode: 1, userCode: 1 });
+Evaluation.index({ prospectCode: 1, userCode: 1 } , { unique: true });
 Evaluation.index({ bestSkills: 1 });
 Evaluation.index({ worstSkills: 1 });
 module.exports = {
